@@ -1,0 +1,85 @@
+@page "/Books"
+@inject NavigationManager Navigation
+@inject HttpClient Http
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table, tr, th 
+        {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+    @if(books == null)
+    {
+        <p>Livros não disponíveis</p>
+    }
+
+    else
+    {
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>ISBN</th>
+                <th>Título</th>
+                <th>Gênero</th>
+                <th>Autor</th>
+                <th>Editora</th>
+                <th>Sessão</th>
+                <th>Situação</th>
+            </tr>
+
+            @foreach (var item in books)
+            {
+                
+                <tr>
+                    <th>@item.Id</th>
+                    <th>@item.ISBN</th>
+                    <th>@item.Title</th>
+                    <th>@item.Genre</th>
+                    <th>@item.Author</th>
+                    <th>@item.Publisher</th>
+                    <th>@item.Session</th>
+                    <th>@item.Situation</th>
+                </tr>
+
+            }
+        </table>
+        
+    }
+</body>
+</html>
+
+
+@code
+{
+    public List<Book>? books { get; set; } = new List<Book>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        books = await Http.GetFromJsonAsync<List<Book>?>("book");
+    }
+
+    public void Login()
+    {
+        Navigation.NavigateTo("/Login");
+    }
+
+    public class Book
+    {
+        public int Id { get; set; }
+        public string ISBN { get; set; }
+        public string Title { get; set; }
+        public string Genre { get; set; }
+        public string Author { get; set; }
+        public string Publisher { get; set; }
+        public string Session { get; set; }
+        public string Situation { get; set; }
+    }
+}

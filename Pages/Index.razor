@@ -1,0 +1,32 @@
+﻿@page "/"
+@inject NavigationManager Navigation
+@inject HttpClient Http
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>LibManager</title>
+
+</head>
+<body>
+
+<button @onclick = "AcessarBiblio">Acessar Biblioteca</button><br>
+<button @onclick = "Login">Fazer Login</button>
+
+</body>
+</html>
+
+
+@code
+{
+    public void AcessarBiblio()
+    {
+        Navigation.NavigateTo("/Books");
+    }
+
+    public void Login()
+    {
+        Navigation.NavigateTo("/Login");
+    }
+}

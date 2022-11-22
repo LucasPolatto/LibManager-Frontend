@@ -1,0 +1,67 @@
+@page "/Login"
+@inject NavigationManager Navigation
+@inject HttpClient Http
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        p {color: red;}
+    </style>
+</head>
+<body>
+    <form>
+        @if (msgInvalido == true)
+        {
+            <p>Usuário ou senha incorreta</p>
+        }
+
+        <label for="Username">Username: </label>
+        <input type="text" @bind="username" id="Username" name="Username"> <br>
+
+        <label for="Password">Password: </label>
+        <input type="password" @bind="password" id="Password" name="Password"> <br><br>
+
+        <button type="button" @onclick="ValidarLogin">Logar</button>
+    </form>
+</body>
+</html>
+
+@code
+{
+    private string? username;
+    private string? password;
+    private bool msgInvalido = false;
+
+    public List<User>? users { get; set; } = new List<User>();
+
+    private void ValidarLogin()
+    {
+        foreach (var item in users)
+        {
+            if(item.Username == username && item.Password == password)
+            {
+                Navigation.NavigateTo("/Books");
+            }
+            else
+            {
+                msgInvalido = true;
+            }
+        }
+    }
+
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await Http.GetFromJsonAsync<List<User>?>("user");
+    }
+
+    public class User
+    {
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
+}

@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\lucas\\OneDrive\\Documentos\\GitHub\\LibManager-Frontend\\bin\\Debug\\net7.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
+    },
+    {
+      "Id": "C:\\Users\\lucas\\OneDrive\\Documentos\\GitHub\\LibManager-Frontend\\obj\\Debug\\net7.0\\build-gz\\8ilk++uo.gz",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "C:\\Users\\lucas\\OneDrive\\Documentos\\GitHub\\LibManager-Frontend\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.LibManager-Frontend.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.LibManager-Frontend.props",
+      "PackagePath": "build\\LibManager-Frontend.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.LibManager-Frontend.props",
+      "PackagePath": "buildMultiTargeting\\LibManager-Frontend.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.LibManager-Frontend.props",
+      "PackagePath": "buildTransitive\\LibManager-Frontend.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
