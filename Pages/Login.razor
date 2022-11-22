@@ -1,6 +1,7 @@
 @page "/Login"
 @inject NavigationManager Navigation
 @inject HttpClient Http
+@inject LoginService LoginService
 
 <!DOCTYPE html>
 <html>
@@ -41,6 +42,8 @@
         {
             if(item.Username == username && item.Password == password)
             {
+                LoginService.Logado = true;
+                LoginService.User = username;
                 Navigation.NavigateTo("/Books");
             }
             else
@@ -49,8 +52,6 @@
             }
         }
     }
-
-    
 
     protected override async Task OnInitializedAsync()
     {

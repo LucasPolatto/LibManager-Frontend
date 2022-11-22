@@ -41,6 +41,39 @@
         }
       },
       {
+        "HashCode": -849151188,
+        "Kind": "Components.Component",
+        "Name": "LibManager_Frontend.Pages.Login",
+        "AssemblyName": "LibManager-Frontend",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Login"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "LibManager_Frontend.Pages.Login"
+        }
+      },
+      {
+        "HashCode": -1894583180,
+        "Kind": "Components.Component",
+        "Name": "LibManager_Frontend.Pages.Login",
+        "AssemblyName": "LibManager-Frontend",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "LibManager_Frontend.Pages.Login"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "LibManager_Frontend.Pages.Login",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
         "HashCode": -636930345,
         "Kind": "Components.Component",
         "Name": "LibManager_Frontend.Pages.Index",
@@ -103,39 +136,6 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "LibManager_Frontend.Pages.Books",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": -849151188,
-        "Kind": "Components.Component",
-        "Name": "LibManager_Frontend.Pages.Login",
-        "AssemblyName": "LibManager-Frontend",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Login"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "LibManager_Frontend.Pages.Login"
-        }
-      },
-      {
-        "HashCode": -1894583180,
-        "Kind": "Components.Component",
-        "Name": "LibManager_Frontend.Pages.Login",
-        "AssemblyName": "LibManager-Frontend",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "LibManager_Frontend.Pages.Login"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "LibManager_Frontend.Pages.Login",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },

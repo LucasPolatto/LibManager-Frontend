@@ -66,11 +66,6 @@
         books = await Http.GetFromJsonAsync<List<Book>?>("book");
     }
 
-    public void Login()
-    {
-        Navigation.NavigateTo("/Login");
-    }
-
     public class Book
     {
         public int Id { get; set; }
