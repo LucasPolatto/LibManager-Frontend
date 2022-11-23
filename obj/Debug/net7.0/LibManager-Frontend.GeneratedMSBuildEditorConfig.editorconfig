@@ -20,16 +20,60 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/BookAdd.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQm9va0FkZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/BookDelete.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQm9va0RlbGV0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/Books.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQm9va3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/BookUpdate.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQm9va1VwZGF0ZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/LoanAdd.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9hbkFkZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/LoanDelete.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9hbkRlbGV0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/Loans.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9hbnMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/LoanUpdate.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9hblVwZGF0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/Login.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/Register.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/UserDelete.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlckRlbGV0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/UserMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlck1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/UserUpdate.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclVwZGF0ZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Shared/MainLayout.razor]

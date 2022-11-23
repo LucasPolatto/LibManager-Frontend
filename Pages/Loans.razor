@@ -1,0 +1,113 @@
+@page "/Loans"
+@inject NavigationManager Navigation
+@inject HttpClient Http
+@inject LoginService LoginService
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+        table, tr, th {border: 1px solid black;}
+        p {color: red;}
+
+    </style>
+</head>
+
+<body>
+
+@if (LoginService.Logado == true)
+{
+    <button @onclick="LoanAdd">Fazer emprestimo</button>
+    <button @onclick="LoanUpdate">Atualizar emprestimo</button>
+    <button @onclick="LoanDelete">Remover emprestimo</button>
+
+    @if(loans == null)
+    {
+        <p>Nenhum emprestimo realizado</p>
+    }
+
+    else
+    {
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Livro</th>
+                <th>Estudante</th>
+                <th>Data de emprestimo</th>
+                <th>Data de devolução</th>
+            </tr>
+
+            @foreach (var item in loans)
+            {
+                foreach(var item2 in books)
+                {
+                    if (item.BookId == item2.Id)
+                    {
+                        <tr>
+                        <th>@item.Id</th>
+                        <th>@item2.Title</th>
+                        <th>@item.Student</th>
+                        <th>@item.LoanDate</th>
+                        <th>@item.ReturnDate</th>
+                    </tr>
+                    }
+                }
+            }
+        </table>
+        
+    }
+}
+
+else{Navigation.NavigateTo("/Login");}
+
+</body>
+</html>
+
+@code
+{
+    public List<Loan>? loans { get; set; } = new List<Loan>();
+    public List<Book>? books { get; set; } = new List<Book>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        loans = await Http.GetFromJsonAsync<List<Loan>?>("loan");
+        books = await Http.GetFromJsonAsync<List<Book>?>("book");
+    }
+
+    public void LoanAdd()
+    {
+        Navigation.NavigateTo("/Loans/Add");
+    }
+
+    public void LoanUpdate()
+    {
+        Navigation.NavigateTo("/Loans/Update");
+    }
+
+    public void LoanDelete()
+    {
+        Navigation.NavigateTo("/Loans/Delete");
+    }
+
+    public class Loan
+    {
+        public int Id { get; set; }
+        public int BookId { get; set; }
+        public string Student { get; set; }
+        public string LoanDate { get; set; }
+        public string ReturnDate { get; set; }
+    }
+
+    public class Book
+    {
+        public int Id { get; set; }
+        public string ISBN { get; set; }
+        public string Title { get; set; }
+        public string Genre { get; set; }
+        public string Author { get; set; }
+        public string Publisher { get; set; }
+        public string Session { get; set; }
+        public string Situation { get; set; }
+    }
+}

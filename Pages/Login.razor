@@ -44,6 +44,8 @@
             {
                 LoginService.Logado = true;
                 LoginService.User = username;
+                LoginService.Id = item.Id;
+                LoginService.Password = password;
                 Navigation.NavigateTo("/Books");
             }
             else
@@ -62,7 +64,6 @@
     {
         public int Id { get; set; }
         public string Username { get; set; }
-        public string Email { get; set; }
         public string Password { get; set; }
     }
 }
