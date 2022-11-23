@@ -19,7 +19,6 @@
 @if (LoginService.Logado == true)
 {
     <button @onclick="LoanAdd">Fazer emprestimo</button>
-    <button @onclick="LoanUpdate">Atualizar emprestimo</button>
     <button @onclick="LoanDelete">Remover emprestimo</button>
 
     @if(loans == null)
@@ -78,11 +77,6 @@ else{Navigation.NavigateTo("/Login");}
     public void LoanAdd()
     {
         Navigation.NavigateTo("/Loans/Add");
-    }
-
-    public void LoanUpdate()
-    {
-        Navigation.NavigateTo("/Loans/Update");
     }
 
     public void LoanDelete()

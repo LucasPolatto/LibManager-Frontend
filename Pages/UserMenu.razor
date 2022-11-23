@@ -11,12 +11,7 @@
 <body>
     @if (LoginService.Logado == true)
     {
-        <button @onclick="UserUpdate">Alterar senha</button> <br>
-        <button @onclick="Register">Criar novo usuário</button> <br>
-        @if (possibleDelete == true)
-        {
-            <button @onclick="UserDelete">Deletar usuário</button>
-        }   
+        <button @onclick="UserUpdate">Alterar senha</button> <br> 
     }
     else{Navigation.NavigateTo("/Login");}
 </body>
@@ -24,42 +19,8 @@
 
 @code
 {
-    private bool possibleDelete = false;
-    private int? userCount = 0;
-    public List<User>? users { get; set; } = new List<User>();
-
     public void UserUpdate()
     {
         Navigation.NavigateTo("/User/Update");
-    }
-
-    public void Register()
-    {
-        Navigation.NavigateTo("/User/Register");
-    }
-
-    public void UserDelete()
-    {
-        Navigation.NavigateTo("/User/Delete");
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        users = await Http.GetFromJsonAsync<List<User>?>("user");
-        foreach (var item in users)
-        {
-            userCount = userCount + 1;
-        }
-        if (userCount > 1)
-        {
-            possibleDelete = true;
-        }
-    }
-
-    public class User
-    {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
     }
 }
