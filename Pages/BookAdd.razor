@@ -22,8 +22,8 @@
             <input type="text" @bind="author" id="Author" name="Author"> <br>
             <label for="Publisher">Editora: </label>
             <input type="text" @bind="publisher" id="Publisher" name="Publisher"> <br>
-            <label for="Session">Sessão: </label>
-            <input type="text" @bind="session" id="Session" name="Session"> <br><br>
+            <label for="Section">Sessão: </label>
+            <input type="text" @bind="section" id="Section" name="Section"> <br><br>
 
             <button type="button" @onclick="Save">Salvar</button>
             <button type="button" @onclick="Voltar">Voltar</button>
@@ -40,7 +40,7 @@
     private string genre;
     private string author;
     private string publisher;
-    private string session;
+    private string section;
     private string situation = "Disponível";
 
     public Book newBook = new Book();
@@ -52,7 +52,7 @@
         newBook.Genre = genre;
         newBook.Author = author;
         newBook.Publisher = publisher;
-        newBook.Session = session;
+        newBook.Section = section;
         newBook.Situation = situation;
 
         await Http.PostAsJsonAsync<Book>("book", newBook);
@@ -72,7 +72,7 @@
         public string Genre { get; set; }
         public string Author { get; set; }
         public string Publisher { get; set; }
-        public string Session { get; set; }
+        public string Section { get; set; }
         public string Situation { get; set; }
     }
 }

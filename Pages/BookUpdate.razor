@@ -2,3 +2,102 @@
 @inject NavigationManager Navigation
 @inject HttpClient Http
 @inject LoginService LoginService
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        p {color: red;}
+    </style>
+</head>
+<body>
+    @if (LoginService.Logado == true)
+    {
+        @if (msgNotFound == true)
+        {
+            <p>Livro não encontrado</p>
+        }
+        <form>
+            <label for="Id">ID do livro: </label>
+            <input type="number" @bind="id" id="Id" name="Id"> <br>
+
+            <label for="Section">Seção: </label>
+            <input type="text" @bind="section" id="Section" name="Section"> <br>
+
+            <label for="Situation">Situação: </label>
+            <select @bind="situation" id="Situation" name="Situation" size="2"> <br><br>
+                <optgroup>
+                    <option value="Disponível">Disponível</option>
+                    <option value="Indisponível">Indisponível</option>
+                </optgroup>
+            </select>
+
+            <button type="button" @onclick="Save">Salvar</button>
+            <button type="button" @onclick="Voltar">Voltar</button>
+        </form>
+    }
+    else{Navigation.NavigateTo("/Login");}
+</body>
+</html>
+
+@code
+{
+    [Parameter]
+    public int id { get; set; }
+
+    private string section;
+    private string situation;
+    private bool msgNotFound = false;
+
+    private void Voltar()
+    {
+        Navigation.NavigateTo("/Books");
+    }
+
+    public Book newUpdate = new Book();
+
+    public async void Save()
+    {
+        foreach (var item in books)
+        {
+            if (id == item.Id)
+            {
+                msgNotFound = false;
+
+                newUpdate.ISBN = item.ISBN;
+                newUpdate.Title = item.Title;
+                newUpdate.Genre = item.Genre;
+                newUpdate.Author = item.Author;
+                newUpdate.Publisher = item.Publisher;
+                newUpdate.Section = section;
+                newUpdate.Situation = situation;
+
+                await Http.PutAsJsonAsync<Book>($"book/{id}", newUpdate);
+                Navigation.NavigateTo("/Books");
+            }
+            else
+            {
+                msgNotFound = true;
+            }
+        }
+    }
+
+    public List<Book>? books { get; set; } = new List<Book>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        books = await Http.GetFromJsonAsync<List<Book>?>("book");
+    }
+
+    public class Book
+    {
+        public int Id { get; set; }
+        public string ISBN { get; set; }
+        public string Title { get; set; }
+        public string Genre { get; set; }
+        public string Author { get; set; }
+        public string Publisher { get; set; }
+        public string Section { get; set; }
+        public string Situation { get; set; }
+    }
+}

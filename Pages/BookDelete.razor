@@ -2,3 +2,79 @@
 @inject NavigationManager Navigation
 @inject HttpClient Http
 @inject LoginService LoginService
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    @if (LoginService.Logado == true)
+    {
+        <form>
+            <label for="Id">ID do livro: </label>
+            <input type="number" @bind="id" id="Id" name="Id">
+            <button type="button" @onclick="BookFind">Checar livro</button>
+            <button type="button" @onclick="Voltar">Voltar</button><br>
+
+            @if (bookFind == false && idInserted == true)
+            {
+                <p>Livro não encontrado</p>
+            }
+        </form>
+     }
+    else{Navigation.NavigateTo("/Login");}
+</body>
+</html>
+
+@code
+{
+    [Parameter]
+    public int id { get; set; }
+
+    private bool bookFind = false;
+    private bool idInserted = false;
+
+    public List<Book>? books { get; set; } = new List<Book>();
+
+    public void BookFind()
+    {
+        foreach (var item in books)
+        {
+            if (id == item.Id)
+            {
+                bookFind = true;
+                idInserted = true;
+                LoginService.BookId = id;
+                Navigation.NavigateTo("/Books/Delete/Confirm");
+            }
+            else
+            {
+                bookFind = false;
+                idInserted = true;
+            }
+        }
+    }
+
+    public void Voltar()
+    {
+        Navigation.NavigateTo("/Books");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        books = await Http.GetFromJsonAsync<List<Book>?>("book");
+    }
+
+    public class Book
+    {
+        public int Id { get; set; }
+        public string ISBN { get; set; }
+        public string Title { get; set; }
+        public string Genre { get; set; }
+        public string Author { get; set; }
+        public string Publisher { get; set; }
+        public string Section { get; set; }
+        public string Situation { get; set; }
+    }
+}

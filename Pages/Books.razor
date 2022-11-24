@@ -20,7 +20,7 @@
     @if (LoginService.Logado == true)
     {
         <button @onclick="BookAdd">Adicionar livro</button>
-        <button @onclick="BookUpdate">Atualizar livro</button>
+        <button @onclick="BookUpdate">Alterar seção</button>
         <button @onclick="BookDelete">Remover livro</button>
     }
 
@@ -39,7 +39,7 @@
                 <th>Gênero</th>
                 <th>Autor</th>
                 <th>Editora</th>
-                <th>Sessão</th>
+                <th>Seção</th>
                 <th>Situação</th>
             </tr>
 
@@ -53,7 +53,7 @@
                     <th>@item.Genre</th>
                     <th>@item.Author</th>
                     <th>@item.Publisher</th>
-                    <th>@item.Session</th>
+                    <th>@item.Section</th>
                     <th>@item.Situation</th>
                 </tr>
 
@@ -97,7 +97,7 @@
         public string Genre { get; set; }
         public string Author { get; set; }
         public string Publisher { get; set; }
-        public string Session { get; set; }
+        public string Section { get; set; }
         public string Situation { get; set; }
     }
 }
