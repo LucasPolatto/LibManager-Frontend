@@ -2,3 +2,77 @@
 @inject NavigationManager Navigation
 @inject HttpClient Http
 @inject LoginService LoginService
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    @if (LoginService.Logado == true)
+    {
+        <form>
+            <label for="ISBN">ISBN: </label>
+            <input type="text" @bind="isbn" id="ISBN" name="ISBN"> <br>
+            <label for="Title">Título: </label>
+            <input type="text" @bind="title" id="Title" name="Title"> <br>
+            <label for="Genre">Gênero: </label>
+            <input type="text" @bind="genre" id="Genre" name="Genre"> <br>
+            <label for="Author">Autor: </label>
+            <input type="text" @bind="author" id="Author" name="Author"> <br>
+            <label for="Publisher">Editora: </label>
+            <input type="text" @bind="publisher" id="Publisher" name="Publisher"> <br>
+            <label for="Session">Sessão: </label>
+            <input type="text" @bind="session" id="Session" name="Session"> <br><br>
+
+            <button type="button" @onclick="Save">Salvar</button>
+            <button type="button" @onclick="Voltar">Voltar</button>
+        </form>   
+    }
+    else{Navigation.NavigateTo("/Login");}
+</body>
+</html>
+
+@code
+{
+    private string isbn;
+    private string title;
+    private string genre;
+    private string author;
+    private string publisher;
+    private string session;
+    private string situation = "Disponível";
+
+    public Book newBook = new Book();
+
+    public async void Save()
+    {
+        newBook.ISBN = isbn;
+        newBook.Title = title;
+        newBook.Genre = genre;
+        newBook.Author = author;
+        newBook.Publisher = publisher;
+        newBook.Session = session;
+        newBook.Situation = situation;
+
+        await Http.PostAsJsonAsync<Book>("book", newBook);
+        Navigation.NavigateTo("/Books");
+    }
+
+    public void Voltar()
+    {
+        Navigation.NavigateTo("/Books");
+    }
+
+    public class Book
+    {
+        public int Id { get; set; }
+        public string ISBN { get; set; }
+        public string Title { get; set; }
+        public string Genre { get; set; }
+        public string Author { get; set; }
+        public string Publisher { get; set; }
+        public string Session { get; set; }
+        public string Situation { get; set; }
+    }
+}

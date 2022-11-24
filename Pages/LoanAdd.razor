@@ -2,3 +2,67 @@
 @inject NavigationManager Navigation
 @inject HttpClient Http
 @inject LoginService LoginService
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    @if (LoginService.Logado == true)
+    {
+        <form>
+            <label for="BookId">ID do Livro: </label>
+            <input type="text" @bind="bookId" id="BookId" name="BookId"> <br>
+
+            <label for="Student">Estudante: </label>
+            <input type="text" @bind="student" id="Student" name="Student"> <br>
+
+            <label for="LoanDate">Data de emprestimo: </label>
+            <input type="text" @bind="loanDate" id="LoanDate" name="LoanDate"> <br>
+
+            <label for="ReturnDate">Data de devolução: </label>
+            <input type="text" @bind="returnDate" id="ReturnDate" name="ReturnDate"> <br>
+
+            <button type="button" @onclick="Save">Salvar</button>
+            <button type="button" @onclick="Voltar">Voltar</button>
+        </form>   
+    }
+    else{Navigation.NavigateTo("/Login");}
+</body>
+</html>
+
+@code
+{
+    private int bookId;
+    private string student;
+    private string loanDate;
+    private string returnDate;
+
+    public Loan newLoan = new Loan();
+
+    public async void Save()
+    {
+        newLoan.BookId = bookId;
+        newLoan.Student = student;
+        newLoan.LoanDate = loanDate;
+        newLoan.ReturnDate = returnDate;
+
+        await Http.PostAsJsonAsync<Loan>("loan", newLoan);
+        Navigation.NavigateTo("/Loans");
+    }
+
+    public void Voltar()
+    {
+        Navigation.NavigateTo("/Loans");
+    }
+
+    public class Loan
+    {
+        public int Id { get; set; }
+        public int BookId { get; set; }
+        public string Student { get; set; }
+        public string LoanDate { get; set; }
+        public string ReturnDate { get; set; }
+    }
+}

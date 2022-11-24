@@ -2,3 +2,87 @@
 @inject NavigationManager Navigation
 @inject HttpClient Http
 @inject LoginService LoginService
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        p {color: red;}
+    </style>
+</head>
+<body>
+    @if (LoginService.Logado == true)
+    {
+        <form>
+            @if (msgPwIncorrect == true)
+            {
+                <p>Senha atual incorreta</p>
+            }
+            <label for="NewPassword">Senha atual: </label>
+            <input type="password" @bind="oldPassword" id="NewPassword" name="NewPassword"> <br>
+
+            <label for="OldPassword">Nova senha: </label>
+            <input type="password" @bind="newPassword" id="OldPassword" name="OldPassword"> <br><br>
+
+            <button type="button" @onclick="Save">Salvar</button>
+            <button type="button" @onclick="Voltar">Voltar</button>
+
+        </form>
+    }
+    else{Navigation.NavigateTo("/Login");}
+</body>
+</html>
+
+@code
+{
+    [Parameter]
+    public int id { get; set; }
+
+    private string oldPassword;
+    private string newPassword;
+    private bool msgPwIncorrect = false;
+
+    public User update = new User();
+
+    public List<User>? users { get; set; } = new List<User>();
+    
+    public async void Save()
+    {
+        foreach (var item in users)
+        {
+            if (oldPassword != item.Password)
+            {
+                msgPwIncorrect = true;
+            }
+            else
+            {
+                msgPwIncorrect = false;
+                id = LoginService.GetId();
+                update.Id = LoginService.GetId();
+                update.Username = LoginService.User;
+                update.Password = newPassword;
+
+                await Http.PutAsJsonAsync<User>($"user/{id}", update);
+                LoginService.LogOut();
+                Navigation.NavigateTo("/Login");
+            }
+        }
+    }
+
+    public void Voltar()
+    {
+        Navigation.NavigateTo("/User");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await Http.GetFromJsonAsync<List<User>?>("user");
+    }
+
+    public class User
+    {
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
+}
