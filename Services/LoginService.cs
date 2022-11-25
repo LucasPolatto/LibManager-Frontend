@@ -13,6 +13,14 @@ public class LoginService
         return(BookId);
     }
     // -----------------------------------------------------------------------------------------------------
+    // Repeti o processo do BookService com o LoanService para evitar erros.
+    public int LoanId { get; set; }
+
+    public int GetLoanId()
+    {
+        return(LoanId);
+    }
+    // -----------------------------------------------------------------------------------------------------
 
     public void LogOut()
     {

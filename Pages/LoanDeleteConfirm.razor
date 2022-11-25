@@ -1,0 +1,132 @@
+@page "/Loans/Delete/Confirm"
+@inject NavigationManager Navigation
+@inject HttpClient Http
+@inject LoginService LoginService
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+        table, tr, th {border: 1px solid black;}
+        p {color: red;}
+
+    </style>
+</head>
+<body>
+    @if (LoginService.Logado == true)
+    {
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Livro</th>
+                <th>Estudante</th>
+                <th>Data de emprestimo</th>
+                <th>Data de retorno</th>
+            </tr>
+
+            @foreach (var item in loans)
+            {
+                foreach(var item2 in books)
+                {
+                    if (id == item.Id && item.BookId == item2.Id)
+                    {
+                        <tr>
+                            <th>@item.Id</th>
+                            <th>@item2.Title</th>
+                            <th>@item.Student</th>
+                            <th>@item.LoanDate</th>
+                            <th>@item.ReturnDate</th>
+                        </tr>
+                    }
+                }
+            }
+        </table><br><br>
+        <p>Deseja deletar?</p>
+        <button type="button" @onclick="Deletar">Sim</button>
+        <button type="button" @onclick="Voltar">Não</button>
+        
+     }
+    else{Navigation.NavigateTo("/Login");}
+</body>
+</html>
+
+@code
+{
+    [Parameter]
+    public int id { get; set; }
+
+    private bool loanFind = false;
+    private bool idInserted = false;
+
+    public List<Loan>? loans { get; set; } = new List<Loan>();
+    public List<Book>? books { get; set; } = new List<Book>();
+
+    public void Deletar()
+    {
+        Http.DeleteFromJsonAsync<int>($"loan/{id}");
+        BookSituationUpdate();
+        Navigation.NavigateTo("/Loans/Delete");
+    }
+
+    public void Voltar()
+    {
+        Navigation.NavigateTo("/Loans/Delete");
+    }
+
+    public Book newUpdate = new Book();
+
+    public void BookSituationUpdate()
+    {
+        foreach (var item in loans)
+        {
+            foreach (var item2 in books)
+            {
+                if (true)
+                {
+                    if (id == item.Id && item.BookId == item2.Id)
+                    {
+                        id = item2.Id;
+                        newUpdate.ISBN = item2.ISBN;
+                        newUpdate.Title = item2.Title;
+                        newUpdate.Genre = item2.Genre;
+                        newUpdate.Author = item2.Author;
+                        newUpdate.Publisher = item2.Publisher;
+                        newUpdate.Section = item2.Section;
+                        newUpdate.Situation = "Disponível";
+
+                        Http.PutAsJsonAsync<Book>($"book/{id}", newUpdate);
+                    }
+                }
+            }
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        id = LoginService.GetLoanId();
+        loans = await Http.GetFromJsonAsync<List<Loan>?>("loan");
+        books = await Http.GetFromJsonAsync<List<Book>?>("book");
+    }
+
+    public class Loan
+    {
+        public int Id { get; set; }
+        public int BookId { get; set; }
+        public string Student { get; set; }
+        public string LoanDate { get; set; }
+        public string ReturnDate { get; set; }
+    }
+
+    public class Book
+    {
+        public int Id { get; set; }
+        public string ISBN { get; set; }
+        public string Title { get; set; }
+        public string Genre { get; set; }
+        public string Author { get; set; }
+        public string Publisher { get; set; }
+        public string Section { get; set; }
+        public string Situation { get; set; }
+    }
+}

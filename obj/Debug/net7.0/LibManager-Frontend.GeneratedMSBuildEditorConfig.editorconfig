@@ -52,6 +52,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9hbkRlbGV0ZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/LoanDeleteConfirm.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9hbkRlbGV0ZUNvbmZpcm0ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/lucas/OneDrive/Documentos/GitHub/LibManager-Frontend/Pages/Loans.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9hbnMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
