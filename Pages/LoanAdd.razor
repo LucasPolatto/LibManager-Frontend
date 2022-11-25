@@ -6,12 +6,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <style>
+        p {color: red;}
+    </style>
 </head>
 <body>
     @if (LoginService.Logado == true)
     {
         <form>
+            @if (msgBookIndisponible == true)
+            {
+                <p>Livro indisponível</p>
+            }
+            @if (nullCheck == true)
+            {
+                <p>Preencha todos os campos</p>
+            }
             <label for="BookId">ID do Livro: </label>
             <input type="number" @bind="bookId" id="BookId" name="BookId"> <br>
 
@@ -41,19 +51,29 @@
     private string student;
     private string loanDate;
     private string returnDate;
+    private bool msgBookIndisponible = false;
 
     public Loan newLoan = new Loan();
 
     public async void Save()
     {
-        newLoan.BookId = bookId;
-        newLoan.Student = student;
-        newLoan.LoanDate = loanDate;
-        newLoan.ReturnDate = returnDate;
+        NullCheck();
+        if (nullCheck == false)
+        {
+            BookSituationCheck();
 
-        await Http.PostAsJsonAsync<Loan>("loan", newLoan);
-        BookSituationUpdate();
-        Navigation.NavigateTo("/Loans");
+            if (msgBookIndisponible == false)
+            {
+                newLoan.BookId = bookId;
+                newLoan.Student = student;
+                newLoan.LoanDate = loanDate;
+                newLoan.ReturnDate = returnDate;
+
+                await Http.PostAsJsonAsync<Loan>("loan", newLoan);
+                BookSituationUpdate();
+                Navigation.NavigateTo("/Loans");
+            }
+        }
     }
 
     public void Voltar()
@@ -64,26 +84,63 @@
     public Book newUpdate = new Book();
 
     public List<Book>? books { get; set; } = new List<Book>();
+    
+    public void BookSituationCheck()
+    {
+        foreach (var item in books)
+        {
+            if (bookId == item.Id)
+            {
+                if (item.Situation == "Indisponível")
+                {
+                    msgBookIndisponible = true;
+                }
+                else
+                {
+                    msgBookIndisponible = false;
+                }
+            }
+        }
+    }
+    
+    private bool nullCheck = false;
+
+    public void NullCheck()
+    {
+        if (student != null)
+        {
+            if (loanDate != null)
+            {
+                if (returnDate !=null)
+                {
+                    nullCheck = false;
+                }
+
+                else {nullCheck = true;}
+            }
+
+            else {nullCheck = true;}
+        }
+
+        else {nullCheck = true;}
+    }
 
     public void BookSituationUpdate()
     {
         foreach (var item in books)
         {
-            if (true)
+            if (bookId == item.Id)
             {
-                if (bookId == item.Id)
-                {
-                    id = item.Id;
-                    newUpdate.ISBN = item.ISBN;
-                    newUpdate.Title = item.Title;
-                    newUpdate.Genre = item.Genre;
-                    newUpdate.Author = item.Author;
-                    newUpdate.Publisher = item.Publisher;
-                    newUpdate.Section = item.Section;
-                    newUpdate.Situation = "Indisponível";
+                id = item.Id;
+                newUpdate.ISBN = item.ISBN;
+                newUpdate.Title = item.Title;
+                newUpdate.Genre = item.Genre;
+                newUpdate.Author = item.Author;
+                newUpdate.Publisher = item.Publisher;
+                newUpdate.Section = item.Section;
+                newUpdate.Situation = "Indisponível";
 
-                    Http.PutAsJsonAsync<Book>($"book/{id}", newUpdate);
-                }
+                Http.PutAsJsonAsync<Book>($"book/{id}", newUpdate);
             }
         }
     }

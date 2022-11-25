@@ -60,14 +60,13 @@
     [Parameter]
     public int id { get; set; }
 
-    private bool bookFind = false;
-    private bool idInserted = false;
-
     public List<Book>? books { get; set; } = new List<Book>();
+    public List<Loan>? loans { get; set; } = new List<Loan>();
 
     public void Deletar()
     {
         Http.DeleteFromJsonAsync<int>($"book/{id}");
+        LoanDelete();
         Navigation.NavigateTo("/Books/Delete");
     }
 
@@ -76,10 +75,23 @@
         Navigation.NavigateTo("/Books/Delete");
     }
 
+    public void LoanDelete()
+    {
+        foreach (var item in loans)
+        {
+            if (item.BookId == id)
+            {
+                id = item.Id;
+                Http.DeleteFromJsonAsync<int>($"loan/{id}");
+            }
+        }
+    }
+
     protected override async Task OnInitializedAsync()
     {
         id = LoginService.GetBookId();
         books = await Http.GetFromJsonAsync<List<Book>?>("book");
+        loans = await Http.GetFromJsonAsync<List<Loan>?>("loan");
     }
 
     public class Book
@@ -92,5 +104,14 @@
         public string Publisher { get; set; }
         public string Section { get; set; }
         public string Situation { get; set; }
+    }
+
+    public class Loan
+    {
+        public int Id { get; set; }
+        public int BookId { get; set; }
+        public string Student { get; set; }
+        public string LoanDate { get; set; }
+        public string ReturnDate { get; set; }
     }
 }

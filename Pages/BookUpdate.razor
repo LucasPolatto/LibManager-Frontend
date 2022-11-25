@@ -22,15 +22,7 @@
             <input type="number" @bind="id" id="Id" name="Id"> <br>
 
             <label for="Section">Seção: </label>
-            <input type="text" @bind="section" id="Section" name="Section"> <br>
-
-            <label for="Situation">Situação: </label>
-            <select @bind="situation" id="Situation" name="Situation" size="2"> <br><br>
-                <optgroup>
-                    <option value="Disponível">Disponível</option>
-                    <option value="Indisponível">Indisponível</option>
-                </optgroup>
-            </select>
+            <input type="text" @bind="section" id="Section" name="Section"> <br><br>
 
             <button type="button" @onclick="Save">Salvar</button>
             <button type="button" @onclick="Voltar">Voltar</button>
@@ -46,7 +38,6 @@
     public int id { get; set; }
 
     private string section;
-    private string situation;
     private bool msgNotFound = false;
 
     private void Voltar()
@@ -70,7 +61,7 @@
                 newUpdate.Author = item.Author;
                 newUpdate.Publisher = item.Publisher;
                 newUpdate.Section = section;
-                newUpdate.Situation = situation;
+                newUpdate.Situation = item.Situation;
 
                 await Http.PutAsJsonAsync<Book>($"book/{id}", newUpdate);
                 Navigation.NavigateTo("/Books");

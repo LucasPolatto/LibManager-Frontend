@@ -6,11 +6,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <style>
+        p {color: red;}
+    </style>
 </head>
 <body>
     @if (LoginService.Logado == true)
     {
+        if (nullCheck == true)
+        {
+            <p>Preencha todos os campos</p>
+        }
         <form>
             <label for="ISBN">ISBN: </label>
             <input type="text" @bind="isbn" id="ISBN" name="ISBN"> <br>
@@ -47,21 +53,64 @@
 
     public async void Save()
     {
-        newBook.ISBN = isbn;
-        newBook.Title = title;
-        newBook.Genre = genre;
-        newBook.Author = author;
-        newBook.Publisher = publisher;
-        newBook.Section = section;
-        newBook.Situation = situation;
+        NullCheck();
+        if (nullCheck == false)
+        {
+            newBook.ISBN = isbn;
+            newBook.Title = title;
+            newBook.Genre = genre;
+            newBook.Author = author;
+            newBook.Publisher = publisher;
+            newBook.Section = section;
+            newBook.Situation = situation;
 
-        await Http.PostAsJsonAsync<Book>("book", newBook);
-        Navigation.NavigateTo("/Books");
+            await Http.PostAsJsonAsync<Book>("book", newBook);
+            Navigation.NavigateTo("/Books");   
+        }
     }
 
     public void Voltar()
     {
         Navigation.NavigateTo("/Books");
+    }
+
+    private bool nullCheck = false;
+
+    public void NullCheck()
+    {
+        if (isbn != null)
+        {
+            if (title != null)
+            {
+                if (genre !=null)
+                {
+                    if (author != null)
+                    {
+                        if (publisher != null)
+                        {
+                            if (section != null)
+                            {
+                                nullCheck = false;
+                            }
+
+                            else {nullCheck = true;}
+
+                        }
+                        
+                        else {nullCheck = true;}
+
+                    }
+
+                    else {nullCheck = true;}
+                }
+
+                else {nullCheck = true;}
+            }
+
+            else {nullCheck = true;}
+        }
+
+        else {nullCheck = true;}
     }
 
     public class Book
