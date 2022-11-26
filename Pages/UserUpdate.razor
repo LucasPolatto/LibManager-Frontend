@@ -11,6 +11,8 @@
     </style>
 </head>
 <body>
+<div class="container mt-3">
+
     @if (LoginService.Logado == true)
     {
         <form>
@@ -24,12 +26,14 @@
             <label for="OldPassword">Nova senha: </label>
             <input type="password" @bind="newPassword" id="OldPassword" name="OldPassword"> <br><br>
 
-            <button type="button" @onclick="Save">Salvar</button>
-            <button type="button" @onclick="Voltar">Voltar</button>
+            <button type="button" class="btn btn-primary" @onclick="Save">Salvar</button>
+            <button type="button" class="btn btn-primary" @onclick="Voltar">Voltar</button>
 
         </form>
     }
     else{Navigation.NavigateTo("/Login");}
+
+</div>
 </body>
 </html>
 

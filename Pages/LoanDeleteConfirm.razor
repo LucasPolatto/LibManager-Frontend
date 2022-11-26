@@ -11,19 +11,38 @@
         table, tr, th {border: 1px solid black;}
         p {color: red;}
 
+        thead 
+        {
+            color: white;
+            background-color: dodgerblue;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        tbody
+        {
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
+<div class="container mt-3">
+
     @if (LoginService.Logado == true)
     {
-        <table>
-            <tr>
-                <th>Id</th>
-                <th>Livro</th>
-                <th>Estudante</th>
-                <th>Data de emprestimo</th>
-                <th>Data de retorno</th>
-            </tr>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id (Emprestimo)</th>
+                    <th>Id (Livro)</th>
+                    <th>ISBN</th>
+                    <th>Título</th>
+                    <th>Estudante</th>
+                    <th>Data de emprestimo</th>
+                    <th>Data de retorno</th>
+                </tr>
+            </thead>
 
             @foreach (var item in loans)
             {
@@ -31,23 +50,29 @@
                 {
                     if (id == item.Id && item.BookId == item2.Id)
                     {
-                        <tr>
-                            <th>@item.Id</th>
-                            <th>@item2.Title</th>
-                            <th>@item.Student</th>
-                            <th>@item.LoanDate</th>
-                            <th>@item.ReturnDate</th>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <th>@item.Id</th>
+                                <th>@item2.Id</th>
+                                <th>@item2.ISBN</th>
+                                <th>@item2.Title</th>
+                                <th>@item.Student</th>
+                                <th>@item.LoanDate</th>
+                                <th>@item.ReturnDate</th>
+                            </tr>
+                        </tbody>
                     }
                 }
             }
         </table><br><br>
         <p>Deseja deletar?</p>
-        <button type="button" @onclick="Deletar">Sim</button>
-        <button type="button" @onclick="Voltar">Não</button>
+        <button type="button" class="btn btn-danger" @onclick="Deletar">Sim</button>
+        <button type="button" class="btn btn-primary" @onclick="Voltar">Não</button>
         
      }
     else{Navigation.NavigateTo("/Login");}
+
+</div>
 </body>
 </html>
 

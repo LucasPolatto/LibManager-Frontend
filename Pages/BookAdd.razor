@@ -11,31 +11,44 @@
     </style>
 </head>
 <body>
+<div class="container mt-3">
+
     @if (LoginService.Logado == true)
     {
+        if (isbnCheck == true)
+        {
+            <p>ISBN já registrado</p>
+        }
         if (nullCheck == true)
         {
             <p>Preencha todos os campos</p>
         }
         <form>
             <label for="ISBN">ISBN: </label>
-            <input type="text" @bind="isbn" id="ISBN" name="ISBN"> <br>
-            <label for="Title">Título: </label>
-            <input type="text" @bind="title" id="Title" name="Title"> <br>
-            <label for="Genre">Gênero: </label>
-            <input type="text" @bind="genre" id="Genre" name="Genre"> <br>
-            <label for="Author">Autor: </label>
-            <input type="text" @bind="author" id="Author" name="Author"> <br>
-            <label for="Publisher">Editora: </label>
-            <input type="text" @bind="publisher" id="Publisher" name="Publisher"> <br>
-            <label for="Section">Sessão: </label>
-            <input type="text" @bind="section" id="Section" name="Section"> <br><br>
+            <input type="text" class="form-control w-25" @bind="isbn" id="ISBN" name="ISBN"> <br>
 
-            <button type="button" @onclick="Save">Salvar</button>
-            <button type="button" @onclick="Voltar">Voltar</button>
+            <label for="Title">Título: </label>
+            <input type="text" class="form-control w-25" @bind="title" id="Title" name="Title"> <br>
+
+            <label for="Genre">Gênero: </label>
+            <input type="text" class="form-control w-25" @bind="genre" id="Genre" name="Genre"> <br>
+
+            <label for="Author">Autor: </label>
+            <input type="text" class="form-control w-25" @bind="author" id="Author" name="Author"> <br>
+
+            <label for="Publisher">Editora: </label>
+            <input type="text" class="form-control w-25" @bind="publisher" id="Publisher" name="Publisher"> <br>
+
+            <label for="Section">Seção: </label>
+            <input type="text" class="form-control w-25" @bind="section" id="Section" name="Section"> <br><br>
+
+            <button type="button" class="btn btn-primary" @onclick="Save">Salvar</button>
+            <button type="button" class="btn btn-primary" @onclick="Voltar">Voltar</button>
         </form>   
     }
     else{Navigation.NavigateTo("/Login");}
+
+</div>
 </body>
 </html>
 
@@ -49,6 +62,9 @@
     private string section;
     private string situation = "Disponível";
 
+    private bool isbnCheck = false;
+    private int isbnCheckCount = 0;
+
     public Book newBook = new Book();
 
     public async void Save()
@@ -56,16 +72,20 @@
         NullCheck();
         if (nullCheck == false)
         {
-            newBook.ISBN = isbn;
-            newBook.Title = title;
-            newBook.Genre = genre;
-            newBook.Author = author;
-            newBook.Publisher = publisher;
-            newBook.Section = section;
-            newBook.Situation = situation;
+            ISBNCheck();
+            if (isbnCheck == false)
+            {
+                newBook.ISBN = isbn;
+                newBook.Title = title;
+                newBook.Genre = genre;
+                newBook.Author = author;
+                newBook.Publisher = publisher;
+                newBook.Section = section;
+                newBook.Situation = situation;
 
-            await Http.PostAsJsonAsync<Book>("book", newBook);
-            Navigation.NavigateTo("/Books");   
+                await Http.PostAsJsonAsync<Book>("book", newBook);
+                Navigation.NavigateTo("/Books");
+            }   
         }
     }
 
@@ -111,6 +131,35 @@
         }
 
         else {nullCheck = true;}
+    }
+
+    public void ISBNCheck()
+    {
+        isbnCheckCount = 0;
+
+        foreach (var item in books)
+        {
+            if (isbn == item.ISBN)
+            {
+                isbnCheckCount = isbnCheckCount + 1;
+            }
+
+            if (isbnCheckCount > 0)
+            {
+                isbnCheck = true;
+            }
+            else
+            {
+                isbnCheck = false;
+            }
+        }
+    }
+
+    public List<Book>? books { get; set; } = new List<Book>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        books = await Http.GetFromJsonAsync<List<Book>?>("book");
     }
 
     public class Book

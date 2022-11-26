@@ -11,6 +11,8 @@
     </style>
 </head>
 <body>
+<div class="container mt-3">
+
     @if (LoginService.Logado == true)
     {
         @if (msgNotFound == true)
@@ -19,16 +21,18 @@
         }
         <form>
             <label for="Id">ID do livro: </label>
-            <input type="number" @bind="id" id="Id" name="Id"> <br>
+            <input type="number" class="form-control w-25" @bind="id" id="Id" name="Id"> <br>
 
             <label for="Section">Seção: </label>
-            <input type="text" @bind="section" id="Section" name="Section"> <br><br>
+            <input type="text" class="form-control w-25" @bind="section" id="Section" name="Section"> <br><br>
 
-            <button type="button" @onclick="Save">Salvar</button>
-            <button type="button" @onclick="Voltar">Voltar</button>
+            <button type="button" class="btn btn-primary" @onclick="Save">Salvar</button>
+            <button type="button" class="btn btn-primary" @onclick="Voltar">Voltar</button>
         </form>
     }
     else{Navigation.NavigateTo("/Login");}
+
+</div>
 </body>
 </html>
 

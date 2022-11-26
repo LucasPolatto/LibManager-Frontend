@@ -11,47 +11,68 @@
         table, tr, th {border: 1px solid black;}
         p {color: red;}
 
+        thead 
+        {
+            color: white;
+            background-color: dodgerblue;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        tbody
+        {
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
+<div class="container mt-3">
+
     @if (LoginService.Logado == true)
     {
-        <table>
-            <tr>
-                <th>Id</th>
-                <th>ISBN</th>
-                <th>Título</th>
-                <th>Gênero</th>
-                <th>Autor</th>
-                <th>Editora</th>
-                <th>Seção</th>
-                <th>Situação</th>
-            </tr>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>ISBN</th>
+                    <th>Título</th>
+                    <th>Gênero</th>
+                    <th>Autor</th>
+                    <th>Editora</th>
+                    <th>Seção</th>
+                    <th>Situação</th>
+                </tr>
+            </thead>
 
             @foreach (var item in books)
             {
                 @if (id == item.Id)
                 {
-                    <tr>
-                        <th>@item.Id</th>
-                        <th>@item.ISBN</th>
-                        <th>@item.Title</th>
-                        <th>@item.Genre</th>
-                        <th>@item.Author</th>
-                        <th>@item.Publisher</th>
-                        <th>@item.Section</th>
-                        <th>@item.Situation</th>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <th>@item.Id</th>
+                            <th>@item.ISBN</th>
+                            <th>@item.Title</th>
+                            <th>@item.Genre</th>
+                            <th>@item.Author</th>
+                            <th>@item.Publisher</th>
+                            <th>@item.Section</th>
+                            <th>@item.Situation</th>
+                        </tr>
+                    </tbody>
                 }
 
             }
         </table><br><br>
         <p>Deseja deletar?</p>
-        <button type="button" @onclick="Deletar">Sim</button>
-        <button type="button" @onclick="Voltar">Não</button>
+        <button type="button" class="btn btn-danger" @onclick="Deletar">Sim</button>
+        <button type="button" class="btn btn-primary" @onclick="Voltar">Não</button>
         
      }
     else{Navigation.NavigateTo("/Login");}
+
+</div>
 </body>
 </html>
 

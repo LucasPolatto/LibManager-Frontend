@@ -9,11 +9,15 @@
 
 </head>
 <body>
+<div class="container mt-3">
+
     @if (LoginService.Logado == true)
     {
-        <button @onclick="UserUpdate">Alterar senha</button> <br> 
+        <button class="btn btn-primary" @onclick="UserUpdate">Alterar senha</button> <br> 
     }
     else{Navigation.NavigateTo("/Login");}
+
+</div>
 </body>
 </html>
 

@@ -11,15 +11,29 @@
         table, tr, th {border: 1px solid black;}
         p {color: red;}
 
+        thead 
+        {
+            color: white;
+            background-color: dodgerblue;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        tbody
+        {
+            text-align: center;
+        }
+
     </style>
 </head>
 
 <body>
+<div class="container mt-3">
 
 @if (LoginService.Logado == true)
 {
-    <button @onclick="LoanAdd">Fazer emprestimo</button>
-    <button @onclick="LoanDelete">Remover emprestimo</button>
+    <button class="btn btn-primary" @onclick="LoanAdd">Fazer emprestimo</button>
+    <button class="btn btn-primary" @onclick="LoanDelete">Remover emprestimo</button><br>
 
     @if(loans == null)
     {
@@ -28,14 +42,19 @@
 
     else
     {
-        <table>
-            <tr>
-                <th>Id</th>
-                <th>Livro</th>
-                <th>Estudante</th>
-                <th>Data de emprestimo</th>
-                <th>Data de devolução</th>
-            </tr>
+        <br>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id (Emprestimo)</th>
+                    <th>Id (Livro)</th>
+                    <th>ISBN</th>
+                    <th>Título</th>
+                    <th>Estudante</th>
+                    <th>Data de emprestimo</th>
+                    <th>Data de devolução</th>
+                </tr>
+            </thead>
 
             @foreach (var item in loans)
             {
@@ -43,13 +62,17 @@
                 {
                     if (item.BookId == item2.Id)
                     {
-                        <tr>
-                        <th>@item.Id</th>
-                        <th>@item2.Title</th>
-                        <th>@item.Student</th>
-                        <th>@item.LoanDate</th>
-                        <th>@item.ReturnDate</th>
-                    </tr>
+                        <tbody>
+                            <tr>
+                                <th>@item.Id</th>
+                                <th>@item2.Id</th>
+                                <th>@item2.ISBN</th>
+                                <th>@item2.Title</th>
+                                <th>@item.Student</th>
+                                <th>@item.LoanDate</th>
+                                <th>@item.ReturnDate</th>
+                            </tr>
+                        </tbody>
                     }
                 }
             }
@@ -60,6 +83,7 @@
 
 else{Navigation.NavigateTo("/Login");}
 
+</div>
 </body>
 </html>
 

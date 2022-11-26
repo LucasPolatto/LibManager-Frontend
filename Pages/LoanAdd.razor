@@ -11,9 +11,15 @@
     </style>
 </head>
 <body>
+<div class="container mt-3">
+
     @if (LoginService.Logado == true)
     {
         <form>
+            @if (bookExist == false)
+            {
+                <p>Livro não encontrado</p>
+            }
             @if (msgBookIndisponible == true)
             {
                 <p>Livro indisponível</p>
@@ -23,22 +29,24 @@
                 <p>Preencha todos os campos</p>
             }
             <label for="BookId">ID do Livro: </label>
-            <input type="number" @bind="bookId" id="BookId" name="BookId"> <br>
+            <input type="number" class="form-control w-25" @bind="bookId" id="BookId" name="BookId"> <br>
 
             <label for="Student">Estudante: </label>
-            <input type="text" @bind="student" id="Student" name="Student"> <br>
+            <input type="text" class="form-control w-25" @bind="student" id="Student" name="Student"> <br>
 
             <label for="LoanDate">Data de emprestimo: </label>
-            <input type="text" @bind="loanDate" id="LoanDate" name="LoanDate"> <br>
+            <input type="text" class="form-control w-25" @bind="loanDate" id="LoanDate" name="LoanDate"> <br>
 
             <label for="ReturnDate">Data de devolução: </label>
-            <input type="text" @bind="returnDate" id="ReturnDate" name="ReturnDate"> <br>
+            <input type="text" class="form-control w-25" @bind="returnDate" id="ReturnDate" name="ReturnDate"> <br>
 
-            <button type="button" @onclick="Save">Salvar</button>
-            <button type="button" @onclick="Voltar">Voltar</button>
+            <button type="button" class="btn btn-primary" @onclick="Save">Salvar</button>
+            <button type="button" class="btn btn-primary" @onclick="Voltar">Voltar</button>
         </form>   
     }
     else{Navigation.NavigateTo("/Login");}
+
+</div>
 </body>
 </html>
 
@@ -52,6 +60,8 @@
     private string loanDate;
     private string returnDate;
     private bool msgBookIndisponible = false;
+    private bool bookExist = true;
+    private int bookExistCount = 0;
 
     public Loan newLoan = new Loan();
 
@@ -62,7 +72,7 @@
         {
             BookSituationCheck();
 
-            if (msgBookIndisponible == false)
+            if (bookExist == true && msgBookIndisponible == false)
             {
                 newLoan.BookId = bookId;
                 newLoan.Student = student;
@@ -87,10 +97,16 @@
     
     public void BookSituationCheck()
     {
+        bookExist = true;
+        msgBookIndisponible = false;
+        bookExistCount = 0;
+
         foreach (var item in books)
         {
             if (bookId == item.Id)
             {
+                bookExistCount = bookExistCount + 1;
+
                 if (item.Situation == "Indisponível")
                 {
                     msgBookIndisponible = true;
@@ -100,6 +116,14 @@
                     msgBookIndisponible = false;
                 }
             }
+        }
+        if (bookExistCount > 0)
+        {
+            bookExist = true;
+        }
+        else
+        {
+            bookExist = false;
         }
     }
     

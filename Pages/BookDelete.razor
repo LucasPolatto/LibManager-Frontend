@@ -6,16 +6,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <style>
+        p {color: red;}
+    </style>
 </head>
 <body>
+<div class="container mt-3">
+
     @if (LoginService.Logado == true)
     {
         <form>
             <label for="Id">ID do livro: </label>
-            <input type="number" @bind="id" id="Id" name="Id">
-            <button type="button" @onclick="BookFind">Checar livro</button>
-            <button type="button" @onclick="Voltar">Voltar</button><br>
+            <input type="number" class="form-control w-25" @bind="id" id="Id" name="Id"> <br>
+
+            <button type="button" class="btn btn-primary" @onclick="BookFind">Checar livro</button>
+            <button type="button" class="btn btn-primary" @onclick="Voltar">Voltar</button><br>
 
             @if (bookFind == false && idInserted == true)
             {
@@ -24,6 +29,8 @@
         </form>
      }
     else{Navigation.NavigateTo("/Login");}
+
+</div>
 </body>
 </html>
 

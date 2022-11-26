@@ -11,6 +11,8 @@
     </style>
 </head>
 <body>
+<div class="container mt-3">
+
     <form>
         @if (msgInvalido == true)
         {
@@ -18,13 +20,15 @@
         }
 
         <label for="Username">Usuário: </label>
-        <input type="text" @bind="username" id="Username" name="Username"> <br>
+        <input type="text" class="form-control w-25" @bind="username" id="Username" name="Username"> <br>
 
         <label for="Password">Senha: </label>
-        <input type="password" @bind="password" id="Password" name="Password"> <br><br>
+        <input type="password" class="form-control w-25" @bind="password" id="Password" name="Password"> <br><br>
 
-        <button type="button" @onclick="ValidarLogin">Logar</button>
+        <button type="button" class="btn btn-primary" @onclick="ValidarLogin">Logar</button>
     </form>
+
+</div>
 </body>
 </html>
 

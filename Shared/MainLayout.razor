@@ -2,7 +2,7 @@
 @inject LoginService LoginService
 @inject NavigationManager Navigation
 
-<nav class="navbar navbar-expand-lg bg-light">
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark">
 
     <div class="container-fluid">
 
@@ -42,7 +42,7 @@
 
                     <li class="nav-item">
 
-                        <a class="nav-link" @onclick="LogOut">Sair</a>
+                        <a class="nav-link" href="/Login" @onclick="LogOut">Sair</a>
 
                     </li>
                 }
@@ -75,6 +75,5 @@
     public void LogOut()
     {
         LoginService.LogOut();
-        Navigation.NavigateTo("/Login");
     }
 }
